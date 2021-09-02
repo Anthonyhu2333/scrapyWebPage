@@ -3,7 +3,9 @@
 <!--    第一排所展示的数据-->
     <el-carousel :interval="4000" type="card" height="250px">
       <el-carousel-item v-for="item in 6" :key="item">
-        <h3 class="medium">{{ item }}</h3>
+        <el-image
+          :src="require('/Users/anthony/Desktop/data_collect_web/src/assets/pic/statistic_1.jpg')"
+          :fit="cover"></el-image>
       </el-carousel-item>
     </el-carousel>
 <!--    第二排数据选择-->
@@ -115,6 +117,26 @@ export default {
       }],
       messages: [
         { id: 'newestTime', type: '更新时间', time: '2021.9.1', content: '与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；' }
+      ],
+      data_1: [],
+      data_1_x: [],
+      data_2_1: [820, 932, 901, 934, 1290, 1330, 1320],
+      data_2_1_x: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      data_2_2: [['2019-10-10', 200],
+        ['2019-10-11', 560],
+        ['2019-10-12', 750],
+        ['2019-10-13', 580],
+        ['2019-10-14', 250],
+        ['2019-10-15', 300],
+        ['2019-10-16', 450],
+        ['2019-10-17', 300],
+        ['2019-10-18', 100]],
+      data_2_2_x: [],
+      data_2_3: [{ value: 1048, name: '北京' },
+        { value: 735, name: '黑龙江' }],
+      data_2_3_x: [],
+      picLocation: [
+
       ]
     }
   },
@@ -128,17 +150,14 @@ export default {
     },
     myEcharts1 () {
       const myChart = echarts.init(document.getElementById('main1'))
-      const { xAxisData } = this
-      const { data1 } = this
-      const { data2 } = this
       // 指定图表的配置项和数据
       const option = {
         title: {
           text: ''
         },
-        legend: {
-          data: ['bar', 'bar2']
-        },
+        // legend: {
+        //   data: ['bar', 'bar2']
+        // },
         toolbox: {
           // y: 'bottom',
           feature: {
@@ -153,7 +172,7 @@ export default {
         },
         tooltip: {},
         xAxis: {
-          data: xAxisData,
+          data: this.data_1_x,
           splitLine: {
             show: false
           }
@@ -161,19 +180,9 @@ export default {
         yAxis: {
         },
         series: [{
-          name: 'bar',
+          name: 'bar1',
           type: 'bar',
-          data: data1,
-          emphasis: {
-            focus: 'series'
-          },
-          animationDelay (idx) {
-            return idx * 10
-          }
-        }, {
-          name: 'bar2',
-          type: 'bar',
-          data: data2,
+          data: this.data_1,
           emphasis: {
             focus: 'series'
           },
@@ -196,16 +205,20 @@ export default {
       var option
 
       option = {
+        title: {
+          text: '数据总量变化',
+          padding: [270, 50, 20, 0]
+        },
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: this.data_2_1_x
         },
         yAxis: {
           type: 'value'
         },
         series: [{
-          data: [820, 932, 901, 934, 1290, 1330, 1320],
+          data: this.data_2_1,
           type: 'line',
           areaStyle: {}
         }]
@@ -219,6 +232,10 @@ export default {
       var option
 
       option = {
+        title: {
+          text: '消息总量变化',
+          padding: [270, 50, 20, 0]
+        },
         xAxis: {
           type: 'category',
           boundaryGap: false
@@ -262,17 +279,7 @@ export default {
               ]
             },
             areaStyle: {},
-            data: [
-              ['2019-10-10', 200],
-              ['2019-10-11', 560],
-              ['2019-10-12', 750],
-              ['2019-10-13', 580],
-              ['2019-10-14', 250],
-              ['2019-10-15', 300],
-              ['2019-10-16', 450],
-              ['2019-10-17', 300],
-              ['2019-10-18', 100]
-            ]
+            data: this.data_2_2
           }
         ]
       }
@@ -285,6 +292,10 @@ export default {
       var option
 
       option = {
+        title: {
+          text: '数据来源分布',
+          padding: [270, 50, 20, 0]
+        },
         tooltip: {
           trigger: 'item'
         },
@@ -317,10 +328,7 @@ export default {
             labelLine: {
               show: false
             },
-            data: [
-              { value: 1048, name: '北京' },
-              { value: 735, name: '黑龙江' }
-            ]
+            data: this.data_2_3
           }
         ]
       }

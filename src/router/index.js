@@ -14,6 +14,7 @@ import DBStore from '../components/DB/DBStore.vue'
 import Statistic from '../components/Statistic.vue'
 import DataCheck from '../components/DataCheck.vue'
 import DeviceLocation from '../components/DeviceLocation.vue'
+import DataCharts from '../components/DataCharts'
 
 Vue.use(VueRouter)
 
@@ -62,6 +63,9 @@ const routes = [{
   }, {
     path: '/DeviceLocation',
     component: DeviceLocation
+  }, {
+    path: '/DataCharts',
+    component: DataCharts
   }
   ]
 }]

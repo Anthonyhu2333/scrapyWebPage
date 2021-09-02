@@ -184,6 +184,12 @@ export default {
               children: []
             },
             {
+              name: '数据查询',
+              index: '/DataCharts',
+              icon: 'el-icon-menu',
+              children: []
+            },
+            {
               name: '数据校验规则设置',
               index: '/DataCheck',
               icon: 'el-icon-menu',
