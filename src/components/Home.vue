@@ -79,12 +79,6 @@ export default {
               icon: 'el-icon-menu',
               children: [
                 {
-                  name: '设备位置信息展示展示',
-                  index: '/deviceLocation',
-                  icon: 'el-icon-menu',
-                  children: []
-                },
-                {
                   name: '设备状态展示',
                   index: '/deviceManger',
                   icon: 'el-icon-menu',
@@ -97,6 +91,12 @@ export default {
               index: 'menu1-2',
               icon: 'el-icon-menu',
               children: [
+                {
+                  name: '设备位置信息展示展示',
+                  index: '/deviceLocation',
+                  icon: 'el-icon-menu',
+                  children: []
+                },
                 {
                   name: '网站爬虫信息展示',
                   index: '/websitesManger',
@@ -158,12 +158,12 @@ export default {
                 }
               ]
             },
-            // {
-            //   name: '远程数据文件',
-            //   index: 'menu1-4',
-            //   icon: 'el-icon-menu',
-            //   children: []
-            // },
+            {
+              name: '远程数据文件',
+              index: 'menu1-4',
+              icon: 'el-icon-menu',
+              children: []
+            },
             {
               name: '文件上传下载',
               index: '/fileUploadAndDownload',
