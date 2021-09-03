@@ -25,10 +25,10 @@
         </el-card>
       </el-col>
       <el-col :span="18">
-          <el-image
-            style="height: 300px;margin-left: 200px"
-            :src="require('/Users/anthony/Desktop/data_collect_web/src/assets/pic/statistic_1.jpg')"
-            :fit="cover"></el-image>
+<!--          <el-image-->
+<!--            style="height: 300px;margin-left: 200px"-->
+<!--            :src="require('/Users/anthony/Desktop/data_collect_web/src/assets/pic/statistic_1.jpg')"-->
+<!--            :fit="cover"></el-image>-->
       </el-col>
     </el-row>
     <el-row style="margin-top: 40px">

@@ -3,9 +3,9 @@
 <!--    第一排所展示的数据-->
     <el-carousel :interval="4000" type="card" height="250px">
       <el-carousel-item v-for="item in 6" :key="item">
-        <el-image
-          :src="require('/Users/anthony/Desktop/data_collect_web/src/assets/pic/statistic_1.jpg')"
-          :fit="cover"></el-image>
+<!--        <el-image-->
+<!--          :src="require('/Users/anthony/Desktop/data_collect_web/src/assets/pic/statistic_1.jpg')"-->
+<!--          :fit="cover"></el-image>-->
       </el-carousel-item>
     </el-carousel>
 <!--    第二排数据选择-->
