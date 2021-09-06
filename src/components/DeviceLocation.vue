@@ -14,6 +14,38 @@
                   :lat-lng="marker.location" @click="markerclick(marker.id)" />
       </l-map>
     </div>
+    <el-card class="box-card" style="margin-top: 30px; background: aliceblue">
+      <div slot="header" class="clearfix">
+        <span>设备详情</span>
+        <el-button style="float: right; padding: 3px 0" type="text">下一设备</el-button>
+      </div>
+      <template>
+        <el-table
+          :data="tableData"
+          style="width: 100%">
+          <el-table-column
+            prop="station_id"
+            label="设备ID"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="station_name"
+            label="设备名称"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="longtitude"
+            label="经度"
+            width="180">
+          </el-table-column>
+          <el-table-column
+            prop="laititude"
+            label="纬度"
+            width="180">
+          </el-table-column>
+        </el-table>
+      </template>
+    </el-card>
   </div>
 </template>
 
@@ -35,6 +67,7 @@ export default {
   },
   data () {
     return {
+      tableData: '',
       zoom: 5,
       center: [44.754326, 120.149444],
       url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

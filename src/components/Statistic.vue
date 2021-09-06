@@ -71,10 +71,14 @@
       <el-col :span="10">
         <el-card :body-style="{ padding: '0px' }" style="color: aliceblue;height: 500px;
         margin-right: 10px;margin-left: 10px">
+          <div slot="header" class="clearfix" style="margin-top: 15px">
+            <span style="color: #333744;margin-left: 40%">数据更新情况</span>
+            <el-button style="float: right; padding: 3px 0" type="text">查看详情</el-button>
+          </div>
           <div style="background: aliceblue">
             <el-table
               :data="items"
-              style="width: 100%;margin-top: 30px">
+              style="width: 100%;margin-top: 10px">
               <el-table-column v-for="column in tableColumns" :key="column.key"
                                v-bind:prop="column.key"
                                v-bind:label="column.label">
@@ -87,7 +91,10 @@
         <el-card :body-style="{ padding: '0px' }" style="color: aliceblue;height: 500px;
         margin-right: 10px;margin-left: 10px">
           <div style="margin-left: 20px;margin-right: 20px;margin-top: 30px">
-            <div style="text-align: center;color: #373D41;margin-bottom: 20px">报警信息显示</div>
+            <div slot="header" class="clearfix" style="margin-top: 15px;margin-bottom: 20px">
+              <span style="color: #333744;margin-left: 40%">报警信息显示</span>
+              <el-button style="float: right; padding: 3px 0" type="text">查看详情</el-button>
+            </div>
             <el-collapse v-model="activeNames" @change="handleChange">
               <el-collapse-item v-for="message in messages" :key="message.id" :title=message.time :name=message.id>
                 <div>{{message.content}}</div>
@@ -102,6 +109,7 @@
 
 <script>
 import * as echarts from 'echarts'
+import axios from 'axios'
 
 export default {
   name: 'Statistic',
@@ -141,6 +149,18 @@ export default {
     }
   },
   methods: {
+    // 从后端中获取消息
+    getMessage () {
+      const path = 'http://localhost:5000/logView'
+      axios.get(path)
+        .then((res) => {
+          [this.items] = res.data.items
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.error(error);
+        })
+    },
     // 设置标签页面的展开与收拢
     handleOpen (key, keyPath) {
       console.log(key, keyPath)
@@ -206,7 +226,7 @@ export default {
 
       option = {
         title: {
-          text: '数据总量变化',
+          text: '每日数据变化',
           padding: [270, 50, 20, 0]
         },
         xAxis: {
@@ -233,7 +253,7 @@ export default {
 
       option = {
         title: {
-          text: '消息总量变化',
+          text: '每日消息量变化',
           padding: [270, 50, 20, 0]
         },
         xAxis: {

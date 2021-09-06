@@ -190,6 +190,12 @@ export default {
               children: []
             },
             {
+              name: '消息查询',
+              index: '/MessageTable',
+              icon: 'el-icon-menu',
+              children: []
+            },
+            {
               name: '数据校验规则设置',
               index: '/DataCheck',
               icon: 'el-icon-menu',

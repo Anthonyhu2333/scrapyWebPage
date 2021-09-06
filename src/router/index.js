@@ -15,6 +15,7 @@ import Statistic from '../components/Statistic.vue'
 import DataCheck from '../components/DataCheck.vue'
 import DeviceLocation from '../components/DeviceLocation.vue'
 import DataCharts from '../components/DataCharts'
+import MessageTable from '../components/MessageTable.vue'
 
 Vue.use(VueRouter)
 
@@ -66,6 +67,9 @@ const routes = [{
   }, {
     path: '/DataCharts',
     component: DataCharts
+  }, {
+    path: '/MessageTable',
+    component: MessageTable
   }
   ]
 }]
