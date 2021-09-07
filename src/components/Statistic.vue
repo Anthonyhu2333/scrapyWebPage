@@ -26,12 +26,12 @@
             <el-select v-model="value2" placeholder="请选择表项" style="margin-top: 30px;margin-right: 5px;margin-left: 10%">
               <el-option
                 v-for="item in option2"
-                :key="item.value"
-                :label="item.value"
+                :key="item.id"
+                :label="item.label"
                 :value="item.value">
               </el-option>
             </el-select>
-          <el-button style="margin-top: 20px;margin-left: 80px">查询</el-button>
+          <el-button style="margin-top: 20px;margin-left: 80px" @click="getData(value1,value2)">查询</el-button>
         </el-card>
       </el-col>
       <el-col :span="18">
@@ -121,21 +121,21 @@ export default {
       value2: [],
       option2: [],
       optionSelection: [
-        'river_flow',
-        'river_flow_per_test',
-        'sand_content',
-        'sand_per_test',
-        'sand_amount',
+        'riverFlow',
+        'riverFlowPerTest',
+        'sandContent',
+        'sandPerTest',
+        'sandAmount',
         'temperature',
         'humidity',
         'rainfall',
-        'sediment_measuring_number',
-        'runoff_generation_volume',
-        'sediment_amount',
-        'sediment_lost_amount',
+        'sedimentMeasuringNumber',
+        'runoffGenerationVolume',
+        'sedimentAmount',
+        'sedimentLostAmount',
         'rainfall',
-        'runoff_weight',
-        'runoff_density'
+        'runoffWeight',
+        'runoffDensity'
       ],
       tableColumns: [
         { key: 'updateTime', label: '更新时间' },
@@ -174,33 +174,68 @@ export default {
     // 对第一排下拉框的点击事件做出响应
     value1: function () {
       let recordId = 0
-      recordId = this.getRecordId(this.value1.deviceId)
+      recordId = this.getRecordId(this.value1)
+      console.log(recordId)
       this.value2 = []
       const path1 = 'http://localhost:9999/data_demon/getRecordIndex'
       axios.get(path1, {
         params: {
-          tableName: recordId
+          recordId: recordId
         }
       })
         .then((res) => {
           this.option2 = []
-          this.option2 = res.data
+          for (let i = 0; i < res.data.length; i++) {
+            console.log(res.data)
+            if (this.optionSelection.indexOf(res.data[i].tableFieldName) !== -1) {
+              console.log(res.data[i])
+              this.option2.push({ id: res.data[i].id, label: res.data[i].tableFieldNameZh, value: res.data[i].tableFieldName })
+            }
+          }
         })
         .catch((error) => {
           // eslint-disable-next-line
           console.error(error);
         })
+    },
+    value2: function () {
+
     }
   },
   methods: {
+    getData (deviceID, tableFieldName) {
+      const tabelId = this.getRecordId(deviceID)
+      const text = ['/data_demon/listRecordOneData', '/data_demon/listRecordTwoData', '/data_demon/listRecordThreeData', '/data_demon/listRecordFourData']
+      const date = ['testDate', 'test_datetime', 'test_datetime', 'datetime']
+      const path = 'http://localhost:9999' + text[tabelId - 1]
+      axios.get(path, {
+        params: {
+          count: 100,
+          deviceId: deviceID,
+          offset: 0
+        }
+      })
+        .then((res) => {
+          console.log(res.data)
+          console.log(tableFieldName)
+          this.data_1 = []
+          this.data_1_x = []
+          for (let i = 0; i < res.data.length; i++) {
+            this.data_1.push(res.data[i][tableFieldName])
+            this.data_1_x.push(res.data[i][date[tabelId - 1]])
+          }
+          this.myEcharts1()
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.error(error);
+        })
+    },
     getRecordId (id) {
       if (id < 10) return 4
       if (id > 10000) return 3
       if (id > 4000) return 2
       return 1
-    },
-    testClick () {
-      console.log('点击一次')
     },
     // 从后端中获取消息
     getMessage () {
@@ -272,7 +307,7 @@ export default {
         .then((res) => {
           this.option1 = []
           for (let i = 0; i < res.data.length; i++) {
-            this.option1.push({ id: res.data[i].deviceId, label: res.data[i].name, value: res.data[i].tableName })
+            this.option1.push({ id: res.data[i].deviceId, label: res.data[i].name, value: res.data[i].deviceId })
           }
         })
         .catch((error) => {

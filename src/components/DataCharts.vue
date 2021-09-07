@@ -2,26 +2,18 @@
   <div>
     <el-row>
       <el-col :span="6">
-        <el-card :body-style="{ padding: '0px' }" style="height: 300px;background: aliceblue;margin-right: 20px;margin-left: 20px">
+        <el-card :body-style="{ padding: '0px' }" style="height: 200px;background: aliceblue;margin-right: 20px;margin-left: 20px">
           <div style="height: 20px"></div>
           <div style="text-align: center">数据总览</div>
-          <el-select v-model="value" placeholder="请选择数据源" style="margin-top: 30px;margin-right: 5px;margin-left: 25px">
+          <el-select v-model="value1" placeholder="请选择数据源" style="margin-top: 30px;margin-right: 5px;margin-left: 25px">
             <el-option
-              v-for="item in options"
-              :key="item.value"
+              v-for="item in option1"
+              :key="item.id"
               :label="item.label"
               :value="item.value">
             </el-option>
           </el-select>
-          <el-select v-model="value" placeholder="请选择表项" style="margin-top: 30px;margin-right: 5px;margin-left: 25px">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-          <el-button style="margin-top: 20px;margin-left: 80px">查询</el-button>
+          <el-button style="margin-top: 20px;margin-left: 80px" @click="getData(value1)">查询</el-button>
         </el-card>
       </el-col>
       <el-col :span="18">
@@ -45,13 +37,15 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'DataCharts',
   data () {
     return {
-      items: [
-        { device_number: '1' }
-      ],
+      value1: [],
+      option1: [],
+      items: [],
       tableColumns: [
         { key: 'station_name', label: '地点' },
         { key: 'device_number', label: '设备标号' },
@@ -62,6 +56,68 @@ export default {
         { key: 'sand_content', label: '含沙量' }
       ]
     }
+  },
+  methods: {
+    getData (deviceID) {
+      const tabelId = this.getRecordId(deviceID)
+      const path1 = 'http://localhost:9999/data_demon/getRecordAllNames'
+      const text = ['/data_demon/listRecordOneData', '/data_demon/listRecordTwoData', '/data_demon/listRecordThreeData', '/data_demon/listRecordFourData']
+      const path2 = 'http://localhost:9999' + text[tabelId - 1]
+      axios.get(path1, {
+        params: {
+          recordId: tabelId
+        }
+      })
+        .then((res) => {
+          console.log(res.data)
+          this.tableColumns = []
+          for (let i = 0; i < res.data.length; i++) {
+            this.tableColumns.push({ key: res.data[i].tableFieldName, label: res.data[i].tableFieldNameZh })
+          }
+          console.log(this.tableColumns)
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.error(error);
+        })
+      axios.get(path2, {
+        params: {
+          count: 100,
+          deviceId: deviceID,
+          offset: 0
+        }
+      })
+        .then((res) => {
+          this.items = res.data
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.error(error);
+        })
+    },
+    getRecordId (id) {
+      if (id < 10) return 4
+      if (id > 10000) return 3
+      if (id > 4000) return 2
+      return 1
+    },
+    getMessage () {
+      const path5 = 'http://localhost:9999/data_demon/listStationList'
+      axios.get(path5)
+        .then((res) => {
+          this.option1 = []
+          for (let i = 0; i < res.data.length; i++) {
+            this.option1.push({ id: res.data[i].deviceId, label: res.data[i].name, value: res.data[i].deviceId })
+          }
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.error(error);
+        })
+    }
+  },
+  created () {
+    this.getMessage()
   }
 }
 </script>
