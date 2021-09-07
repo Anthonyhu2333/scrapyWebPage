@@ -3,9 +3,9 @@
     <el-row>
       <el-col :span="6">
         <el-card :body-style="{ padding: '0px' }" style="height: 300px;background: aliceblue;margin-right: 25px;margin-left: 25px">
-          <div style="height: 20px"></div>
+          <div style="height: 15px"></div>
           <div style="text-align: center">数据格式设置</div>
-          <el-select v-model="value" placeholder="请选择数据源" style="margin-top: 70px;margin-right: 5px;margin-left: 25px">
+          <el-select v-model="value" placeholder="请选择数据源" style="margin-top: 70px;margin-right: 5px;margin-left: 10%">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -13,7 +13,7 @@
               :value="item.value">
             </el-option>
           </el-select>
-          <el-select v-model="value" placeholder="请选择表项" style="margin-top: 30px;margin-right: 5px;margin-left: 25px">
+          <el-select v-model="value" placeholder="请选择表项" style="margin-top: 30px;margin-right: 5px;margin-left: 10%">
             <el-option
               v-for="item in options"
               :key="item.value"

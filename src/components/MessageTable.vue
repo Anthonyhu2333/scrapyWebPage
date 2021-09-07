@@ -2,27 +2,27 @@
   <div>
     <el-row>
       <el-col :span="6">
-        <el-card :body-style="{ padding: '0px' }" style="height: 300px;background: aliceblue;margin-right: 20px;margin-left: 20px">
-          <div style="height: 20px"></div>
-          <div style="text-align: center">消息类型筛选</div>
-          <el-select v-model="value" placeholder="请选择消息来源" style="margin-top: 30px;margin-right: 5px;margin-left: 25px">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-          <el-select v-model="value" placeholder="请选择消息类型" style="margin-top: 30px;margin-right: 5px;margin-left: 25px">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-          <el-button style="margin-top: 20px;margin-left: 80px">查询</el-button>
-        </el-card>
+<!--        <el-card :body-style="{ padding: '0px' }" style="height: 300px;background: aliceblue;margin-right: 20px;margin-left: 20px">-->
+<!--          <div style="height: 20px"></div>-->
+<!--          <div style="text-align: center">消息类型筛选</div>-->
+<!--          <el-select v-model="value" placeholder="请选择消息来源" style="margin-top: 30px;margin-right: 5px;margin-left: 25px">-->
+<!--            <el-option-->
+<!--              v-for="item in options"-->
+<!--              :key="item.value"-->
+<!--              :label="item.label"-->
+<!--              :value="item.value">-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--          <el-select v-model="value" placeholder="请选择消息类型" style="margin-top: 30px;margin-right: 5px;margin-left: 25px">-->
+<!--            <el-option-->
+<!--              v-for="item in options"-->
+<!--              :key="item.value"-->
+<!--              :label="item.label"-->
+<!--              :value="item.value">-->
+<!--            </el-option>-->
+<!--          </el-select>-->
+<!--          <el-button style="margin-top: 20px;margin-left: 80px">查询</el-button>-->
+<!--        </el-card>-->
       </el-col>
       <el-col :span="18">
         <!--          <el-image-->
@@ -45,6 +45,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'MessageTable',
   data () {
@@ -53,15 +55,29 @@ export default {
         { device_number: '1' }
       ],
       tableColumns: [
-        { key: 'station_name', label: '地点' },
-        { key: 'device_number', label: '设备标号' },
-        { key: 'test_date', label: '日期' },
-        { key: 'test_time', label: '时间' },
-        { key: 'river_flow', label: '径流量' },
-        { key: 'river_flow_per_test', label: '每小时流量' },
-        { key: 'sand_content', label: '含沙量' }
+        { key: 'id', label: 'ID' },
+        { key: 'url', label: '网址' },
+        { key: 'time', label: '时间' },
+        { key: 'type', label: '类型' },
+        { key: 'content', label: '内容' }
       ]
     }
+  },
+  methods: {
+    getMessage () {
+      const path = 'http://localhost:9999/data_demon/listWarningDetails'
+      axios.get(path)
+        .then((res) => {
+          this.items = res.data
+        })
+        .catch((error) => {
+          // eslint-disable-next-line
+          console.error(error);
+        })
+    }
+  },
+  created () {
+    this.getMessage()
   }
 }
 </script>

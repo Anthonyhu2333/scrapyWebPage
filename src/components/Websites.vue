@@ -43,7 +43,9 @@
         <el-table-column prop="scrapyState" label="爬虫状态"></el-table-column>
         <el-table-column prop = "scrapyOffOrOn" label="爬虫开关">
           <template slot-scope="scope">
-            <el-switch v-model="scope.row.scrapyOffOrOn" @change="scrapyStateOffOrOn(scope.row)"></el-switch>
+            <el-switch v-model="scope.row.scrapyOffOrOn" @change="scrapyStateOffOrOn($event,scope.row)"
+                       :on-value="1"
+                       :off-value="0"></el-switch>
           </template>
         </el-table-column>
         <el-table-column label="操作">
@@ -240,11 +242,15 @@ export default {
       this.$message.success('该url可达')
     },
 
-    async scrapyStateOffOrOn (website) {
+    async scrapyStateOffOrOn ($event, website) {
       // 开启爬虫按钮
+      var isActive = $event
       const params = new URLSearchParams()
       params.append('scrapyName', website.scrapySelect)
-      const { data: res } = await this.$http.post('openScrapyInstance', params)
+      var command
+      if (isActive === 1) command = 'openScrapyInstance'
+      else command = 'closeScrapyInstance'
+      const { data: res } = await this.$http.post(command, params)
       if (res.code === 500) {
         return this.$message.error('命令执行失败')
       }
