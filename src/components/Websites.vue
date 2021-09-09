@@ -248,7 +248,7 @@ export default {
       const params = new URLSearchParams()
       params.append('scrapyName', website.scrapySelect)
       var command
-      if (isActive === 1) command = 'openScrapyInstance'
+      if (isActive === true) command = 'openScrapyInstance'
       else command = 'closeScrapyInstance'
       const { data: res } = await this.$http.post(command, params)
       if (res.code === 500) {

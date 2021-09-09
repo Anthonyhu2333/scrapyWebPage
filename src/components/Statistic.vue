@@ -216,7 +216,7 @@ export default {
       const path = 'http://localhost:8080' + text[tabelId - 1]
       axios.get(path, {
         params: {
-          count: 100,
+          count: 10000,
           deviceId: deviceID,
           offset: 0
         }
@@ -351,6 +351,22 @@ export default {
             }
           }
         },
+        dataZoom: [
+          {
+            show: true,
+            realtime: true,
+            start: 30,
+            end: 70,
+            xAxisIndex: [0, 1]
+          },
+          {
+            type: 'inside',
+            realtime: true,
+            start: 30,
+            end: 70,
+            xAxisIndex: [0, 1]
+          }
+        ],
         tooltip: {},
         xAxis: {
           data: this.data_1_x,
