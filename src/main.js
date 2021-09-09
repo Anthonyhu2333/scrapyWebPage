@@ -15,7 +15,7 @@ Vue.config.productionTip = false
 // 这样Vue的每个组件都可以通过this直接访问到$http，
 // 从而发起请求
 
-axios.defaults.baseURL = 'http://localhost:8080/'
+axios.defaults.baseURL = 'http://localhost:2333/'
 axios.interceptors.request.use(config => {
   console.log(config)
   config.headers.Authorization = window.sessionStorage.getItem('token')

@@ -107,7 +107,7 @@ export default {
     getMessage () {
       var countValue = 30
       var offsetValue = 0
-      const path = 'http://localhost:8080/data_demon/listStationDetails?count=' + countValue + '&offset=' + offsetValue
+      const path = 'http://localhost:2333/data_demon/listStationDetails?count=' + countValue + '&offset=' + offsetValue
       axios.get(path)
         .then((res) => {
           this.data = res.data

@@ -177,7 +177,7 @@ export default {
       recordId = this.getRecordId(this.value1)
       console.log(recordId)
       this.value2 = []
-      const path1 = 'http://localhost:8080/data_demon/getRecordIndex'
+      const path1 = 'http://localhost:2333/data_demon/getRecordIndex'
       axios.get(path1, {
         params: {
           recordId: recordId
@@ -213,7 +213,7 @@ export default {
       const tabelId = this.getRecordId(deviceID)
       const text = ['/data_demon/listRecordOneData', '/data_demon/listRecordTwoData', '/data_demon/listRecordThreeData', '/data_demon/listRecordFourData']
       const date = ['testDate', 'testDatetime', 'testDatetime', 'dateTime']
-      const path = 'http://localhost:8080' + text[tabelId - 1]
+      const path = 'http://localhost:2333' + text[tabelId - 1]
       axios.get(path, {
         params: {
           count: 10000,
@@ -247,7 +247,7 @@ export default {
     // 从后端中获取消息
     getMessage () {
       // 获取最新更新数据表格信息
-      const path1 = 'http://localhost:8080/data_demon/listStationDetails'
+      const path1 = 'http://localhost:2333/data_demon/listStationDetails'
       axios.get(path1, {
         params: {
           count: 7,
@@ -263,7 +263,7 @@ export default {
           console.error(error);
         })
       // 获取后端的全部报错细节
-      const path2 = 'http://localhost:8080/data_demon/listWarningDetails'
+      const path2 = 'http://localhost:2333/data_demon/listWarningDetails'
       axios.get(path2)
         .then((res) => {
           this.messages = res.data
@@ -274,7 +274,7 @@ export default {
           console.error(error);
         })
       // 获取数据与日期的关系折线图
-      const path3 = 'http://localhost:8080/data_demon/listDailyData'
+      const path3 = 'http://localhost:2333/data_demon/listDailyData'
       axios.get(path3, {
         params: {
           count: 5,
@@ -288,6 +288,8 @@ export default {
             this.data_2_1.push(res.data[i].size)
             this.data_2_1_x.push(res.data[i].updateTime)
           }
+          this.data_2_1 = this.data_2_1.reverse()
+          this.data_2_1_x = this.data_2_1_x.reverse()
           this.myEcharts2()
         })
         .catch((error) => {
@@ -295,7 +297,7 @@ export default {
           console.error(error);
         })
       // 获取两地数据量比例
-      const path4 = 'http://localhost:8080/data_demon/listDataCount'
+      const path4 = 'http://localhost:2333/data_demon/listDataCount'
       axios.get(path4)
         .then((res) => {
           this.data_2_3 = []
@@ -309,7 +311,7 @@ export default {
           console.error(error);
         })
       // 获取所有监测站信息
-      const path5 = 'http://localhost:8080/data_demon/listStationList'
+      const path5 = 'http://localhost:2333/data_demon/listStationList'
       axios.get(path5)
         .then((res) => {
           this.option1 = []
@@ -334,7 +336,6 @@ export default {
       // 指定图表的配置项和数据
       const option = {
         title: {
-          text: ''
         },
         // legend: {
         //   data: ['bar', 'bar2']
@@ -403,7 +404,7 @@ export default {
 
       option = {
         title: {
-          text: '每日数据变化',
+          text: '每日数据量变化',
           padding: [270, 50, 20, 0]
         },
         xAxis: {
@@ -430,7 +431,7 @@ export default {
 
       option = {
         title: {
-          text: '每日消息量变化',
+          text: '每日报警消息变化',
           padding: [270, 50, 20, 0]
         },
         xAxis: {
