@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     getMessage () {
-      const path = 'http://localhost:9999/data_demon/listWarningDetails'
+      const path = 'http://localhost:8080/data_demon/listWarningDetails'
       axios.get(path)
         .then((res) => {
           this.items = res.data

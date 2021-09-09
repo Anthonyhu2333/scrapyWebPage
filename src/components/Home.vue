@@ -92,7 +92,7 @@ export default {
               icon: 'el-icon-menu',
               children: [
                 {
-                  name: '设备位置信息展示展示',
+                  name: '设备位置信息展示',
                   index: '/deviceLocation',
                   icon: 'el-icon-menu',
                   children: []

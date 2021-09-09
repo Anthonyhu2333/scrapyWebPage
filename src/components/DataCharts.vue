@@ -60,9 +60,9 @@ export default {
   methods: {
     getData (deviceID) {
       const tabelId = this.getRecordId(deviceID)
-      const path1 = 'http://localhost:9999/data_demon/getRecordAllNames'
+      const path1 = 'http://localhost:8080/data_demon/getRecordAllNames'
       const text = ['/data_demon/listRecordOneData', '/data_demon/listRecordTwoData', '/data_demon/listRecordThreeData', '/data_demon/listRecordFourData']
-      const path2 = 'http://localhost:9999' + text[tabelId - 1]
+      const path2 = 'http://localhost:8080' + text[tabelId - 1]
       axios.get(path1, {
         params: {
           recordId: tabelId
@@ -88,6 +88,7 @@ export default {
         }
       })
         .then((res) => {
+          console.log(res.data)
           this.items = res.data
         })
         .catch((error) => {
@@ -102,7 +103,7 @@ export default {
       return 1
     },
     getMessage () {
-      const path5 = 'http://localhost:9999/data_demon/listStationList'
+      const path5 = 'http://localhost:8080/data_demon/listStationList'
       axios.get(path5)
         .then((res) => {
           this.option1 = []

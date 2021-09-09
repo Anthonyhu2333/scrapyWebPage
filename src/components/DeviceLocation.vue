@@ -105,9 +105,9 @@ export default {
       }
     },
     getMessage () {
-      var countValue = 0
-      var offsetValue = 4
-      const path = 'http://localhost:9999/data_demon/listStationDetails?count=' + countValue + '&offset=' + offsetValue
+      var countValue = 30
+      var offsetValue = 0
+      const path = 'http://localhost:8080/data_demon/listStationDetails?count=' + countValue + '&offset=' + offsetValue
       axios.get(path)
         .then((res) => {
           this.data = res.data

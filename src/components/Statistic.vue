@@ -74,7 +74,7 @@
         margin-right: 10px;margin-left: 10px">
           <div slot="header" class="clearfix" style="margin-top: 15px">
             <span style="color: #333744;margin-left: 40%">数据更新情况</span>
-            <el-button style="float: right; padding: 3px 0" type="text">查看详情</el-button>
+<!--            <el-button style="float: right; padding: 3px 0" type="text" @click="jump1">查看详情</el-button>-->
           </div>
           <div style="background: aliceblue">
             <el-table
@@ -94,7 +94,7 @@
           <div style="margin-left: 20px;margin-right: 20px;margin-top: 30px">
             <div slot="header" class="clearfix" style="margin-top: 15px;margin-bottom: 20px">
               <span style="color: #333744;margin-left: 40%">报警信息显示</span>
-              <el-button style="float: right; padding: 3px 0" type="text">查看详情</el-button>
+<!--              <el-button style="float: right; padding: 3px 0" type="text" @click="jump2">查看详情</el-button>-->
             </div>
             <el-collapse v-model="activeNames" @change="handleChange">
               <el-collapse-item v-for="message in messages" :key="message.id" :title=message.time :name=message.id>
@@ -177,7 +177,7 @@ export default {
       recordId = this.getRecordId(this.value1)
       console.log(recordId)
       this.value2 = []
-      const path1 = 'http://localhost:9999/data_demon/getRecordIndex'
+      const path1 = 'http://localhost:8080/data_demon/getRecordIndex'
       axios.get(path1, {
         params: {
           recordId: recordId
@@ -203,11 +203,17 @@ export default {
     }
   },
   methods: {
+    // jump1 () {
+    //   window.location.href = '/DataCharts'
+    // },
+    // jump2 () {
+    //   window.location.href = '/MessageTable'
+    // },
     getData (deviceID, tableFieldName) {
       const tabelId = this.getRecordId(deviceID)
       const text = ['/data_demon/listRecordOneData', '/data_demon/listRecordTwoData', '/data_demon/listRecordThreeData', '/data_demon/listRecordFourData']
-      const date = ['testDate', 'test_datetime', 'test_datetime', 'datetime']
-      const path = 'http://localhost:9999' + text[tabelId - 1]
+      const date = ['testDate', 'testDatetime', 'testDatetime', 'dateTime']
+      const path = 'http://localhost:8080' + text[tabelId - 1]
       axios.get(path, {
         params: {
           count: 100,
@@ -223,6 +229,7 @@ export default {
           for (let i = 0; i < res.data.length; i++) {
             this.data_1.push(res.data[i][tableFieldName])
             this.data_1_x.push(res.data[i][date[tabelId - 1]])
+            console.log(date[tabelId - 1])
           }
           this.myEcharts1()
         })
@@ -240,7 +247,7 @@ export default {
     // 从后端中获取消息
     getMessage () {
       // 获取最新更新数据表格信息
-      const path1 = 'http://localhost:9999/data_demon/listStationDetails'
+      const path1 = 'http://localhost:8080/data_demon/listStationDetails'
       axios.get(path1, {
         params: {
           count: 7,
@@ -256,7 +263,7 @@ export default {
           console.error(error);
         })
       // 获取后端的全部报错细节
-      const path2 = 'http://localhost:9999/data_demon/listWarningDetails'
+      const path2 = 'http://localhost:8080/data_demon/listWarningDetails'
       axios.get(path2)
         .then((res) => {
           this.messages = res.data
@@ -267,7 +274,7 @@ export default {
           console.error(error);
         })
       // 获取数据与日期的关系折线图
-      const path3 = 'http://localhost:9999/data_demon/listDailyData'
+      const path3 = 'http://localhost:8080/data_demon/listDailyData'
       axios.get(path3, {
         params: {
           count: 5,
@@ -288,7 +295,7 @@ export default {
           console.error(error);
         })
       // 获取两地数据量比例
-      const path4 = 'http://localhost:9999/data_demon/listDataCount'
+      const path4 = 'http://localhost:8080/data_demon/listDataCount'
       axios.get(path4)
         .then((res) => {
           this.data_2_3 = []
@@ -302,7 +309,7 @@ export default {
           console.error(error);
         })
       // 获取所有监测站信息
-      const path5 = 'http://localhost:9999/data_demon/listStationList'
+      const path5 = 'http://localhost:8080/data_demon/listStationList'
       axios.get(path5)
         .then((res) => {
           this.option1 = []

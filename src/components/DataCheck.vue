@@ -88,7 +88,7 @@ export default {
       recordId = this.getRecordId(this.value1)
       console.log(recordId)
       this.value2 = []
-      const path1 = 'http://localhost:9999/data_demon/getRecordIndex'
+      const path1 = 'http://localhost:8080/data_demon/getRecordIndex'
       axios.get(path1, {
         params: {
           recordId: recordId
@@ -116,7 +116,7 @@ export default {
   methods: {
     getData (deviceID, tableFieldId) {
       const tabelId = this.getRecordId(deviceID)
-      const path = 'http://localhost:9999/data_demon/getRecordIndex'
+      const path = 'http://localhost:8080/data_demon/getRecordIndex'
       axios.get(path, {
         params: {
           recordId: tabelId
@@ -146,7 +146,7 @@ export default {
       return 1
     },
     getMessage () {
-      const path = 'http://localhost:9999/data_demon/listStationList'
+      const path = 'http://localhost:8080/data_demon/listStationList'
       axios.get(path)
         .then((res) => {
           this.option1 = []
@@ -166,7 +166,7 @@ export default {
       }
       regulation = JSON.stringify(json)
       console.log(regulation)
-      const path = 'http://localhost:9999/data_demon/updateRecordIndex'
+      const path = 'http://localhost:8080/data_demon/updateRecordIndex'
       axios.get(path, {
         params: {
           id: id,
