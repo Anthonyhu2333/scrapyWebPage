@@ -249,7 +249,7 @@ export default {
       params.append('scrapyName', website.scrapySelect)
       var command
       if (isActive === true) command = 'openScrapyInstance'
-      else command = 'closeScrapyInstance'
+      else command = 'openScrapyInstance'
       const { data: res } = await this.$http.post(command, params)
       if (res.code === 500) {
         return this.$message.error('命令执行失败')
