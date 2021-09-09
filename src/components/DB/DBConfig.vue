@@ -73,7 +73,7 @@ export default {
         fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
         sources: [{
           type: 'video/mp4',
-          src: 'http://localhost:2333/file/video'// 你所放置的视频的地址，最好是放在服务器上
+          src: 'http://112.98.239.146:2333/file/video'// 你所放置的视频的地址，最好是放在服务器上
         }],
         // poster: 'http://39.106.117.192:8080/static/indexImg.png', // 你的封面地址（覆盖在视频上面的图片）
         width: document.documentElement.clientWidth,

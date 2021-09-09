@@ -6,7 +6,7 @@
     <el-breadcrumb-item>文件上传下载</el-breadcrumb-item>
   </el-breadcrumb>
   <el-card>
-    <el-upload action="http://localhost:2333/uploadFile">
+    <el-upload action="http://112.98.239.146:2333/uploadFile">
       <el-button type="primary">上传文件</el-button>
     </el-upload>
     <el-table :data="fileInfo" stripe border style="width: 100%">
